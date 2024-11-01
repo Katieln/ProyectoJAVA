@@ -1,5 +1,6 @@
 package com.coderhouse.models;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class Factura {
 
     @Temporal(TemporalType.DATE) // Tipo de dato para la fecha
     @Column(nullable = false) // No puede ser nulo
-    private Date fecha;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(nullable = false) // Total de la factura (no puede ser nulo)
     private double total;
