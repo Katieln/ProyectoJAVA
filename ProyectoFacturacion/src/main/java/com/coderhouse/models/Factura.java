@@ -1,41 +1,62 @@
 package com.coderhouse.models;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.ArrayList;
+
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+
 
 @Entity
 public class Factura {
 
+	//******************ColumnsTable*******************//
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // Identificador único del cliente
 
-    @ManyToOne // Una factura pertenece a un solo cliente
-    @JoinColumn(name = "cliente_id", nullable = false) // Relación con el cliente (no puede ser nulo)
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
-    @Temporal(TemporalType.DATE) // Tipo de dato para la fecha
+   
     @Column(nullable = false) // No puede ser nulo
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime fecha = LocalDateTime.now();
 
     @Column(nullable = false) // Total de la factura (no puede ser nulo)
     private double total;
 
-    @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
-    private List<DetalleFactura> detalles; // Relación con los detalles de la factura
+    @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<DetalleFactura> detalles = new ArrayList<>();
+
+    
+    //********************Constructor*******************//
+    
+	public Factura() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+    
+    
+
+    
+    
+    
+  //********************getters & setters*******************//
+    
+
 
 	public Long getId() {
 		return id;
@@ -53,11 +74,11 @@ public class Factura {
 		this.cliente = cliente;
 	}
 
-	public Date getFecha() {
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
 
@@ -76,12 +97,27 @@ public class Factura {
 	public void setDetalles(List<DetalleFactura> detalles) {
 		this.detalles = detalles;
 	}
+	
 
+	//**********************ToString***************************//
+	
 	@Override
 	public String toString() {
 		return "Factura [id=" + id + ", cliente=" + cliente + ", fecha=" + fecha + ", total=" + total + ", detalles="
 				+ detalles + "]";
 	}
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
 
     
     

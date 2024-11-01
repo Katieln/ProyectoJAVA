@@ -2,11 +2,13 @@ package com.coderhouse.models;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,6 +18,8 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class Cliente {
 
+	//******************ColumnsTable*******************//
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // Identificador único del cliente
@@ -24,9 +28,25 @@ public class Cliente {
     private String nombreCliente; // Nombre del cliente
     
     
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<Factura> facturas; // Relación con las facturas
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Factura> facturas = new ArrayList<>();
+    
 
+    //********************Constructor*******************//
+    
+	public Cliente() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Cliente(String nombreCliente) {
+		super();
+		this.nombreCliente = nombreCliente;
+	}
+
+	
+    
+  //********************getters & setters*******************//
 
 	public Long getId() {
 		return id;
@@ -56,12 +76,17 @@ public class Cliente {
 	public void setFacturas(List<Factura> facturas) {
 		this.facturas = facturas;
 	}
+	
 
-
+	//**********************ToString***************************//
+	
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", nombreCliente=" + nombreCliente + ", facturas=" + facturas + "]";
 	}
+
+
+
     
     
     

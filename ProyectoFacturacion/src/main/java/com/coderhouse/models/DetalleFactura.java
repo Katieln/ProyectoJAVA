@@ -15,13 +15,13 @@ public class DetalleFactura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // Identificador único del cliente
 
-    @ManyToOne // Un detalle de factura pertenece a una factura
-    @JoinColumn(name = "factura_id", nullable = false) // Relación con la factura (no puede ser nulo)
+    @ManyToOne
+    @JoinColumn(name = "factura_id", nullable = false)
     private Factura factura;
 
 
-    @ManyToOne // Un detalle de factura pertenece a un producto
-    @JoinColumn(name = "producto_id", nullable = false) // Relación con el producto (no puede ser nulo)
+    @ManyToOne
+    @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
 
     @Column(nullable = false) // Cantidad de productos en la factura (no puede ser nulo)
@@ -29,6 +29,12 @@ public class DetalleFactura {
 
     @Column(nullable = false) // Subtotal de la línea (no puede ser nulo)
     private double subtotal;
+    
+    
+    
+    
+    
+    
 
 	public Long getId() {
 		return id;
