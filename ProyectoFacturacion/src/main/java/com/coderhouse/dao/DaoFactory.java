@@ -25,7 +25,7 @@ public class DaoFactory {
 		em.persist(producto);
 
 	}
-
+//*****///
 
 
 
