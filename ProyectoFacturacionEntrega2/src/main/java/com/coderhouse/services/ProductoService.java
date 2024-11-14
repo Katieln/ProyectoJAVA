@@ -22,7 +22,7 @@ public class ProductoService {
 	}
 
 
-//*********GetProductByID***********//
+//*********GetProductByID************//
 	public Producto findById(Long id) {
 		return productoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Producto no encontrado"));
 	}
