@@ -5,6 +5,10 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,29 +20,28 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
-
 @Entity
 public class Factura {
 
-	//******************ColumnsTable*******************//
-
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Identificador único del cliente
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
+    @JsonBackReference("cliente-reference")  // Usado aquí para evitar la serialización recursiva de la relación con 'Cliente'
     private Cliente cliente;
 
-
-    @Column(nullable = false) // No puede ser nulo
+    @Column(nullable = false)
     private LocalDateTime fecha = LocalDateTime.now();
 
-    @Column(nullable = false) // Total de la factura (no puede ser nulo)
+    @Column(nullable = false)
     private double total;
 
     @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference("factura-reference")  // Usado para serializar la lista de 'Pedido' dentro de 'Factura'
     private List<Pedido> detalles = new ArrayList<>();
+
 
 
     //********************Constructor*******************//
