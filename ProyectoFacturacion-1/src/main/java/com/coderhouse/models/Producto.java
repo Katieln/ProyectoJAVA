@@ -34,7 +34,7 @@ public class Producto {
     private int stock;
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<DetalleFactura> detalles = new ArrayList<>();
+    private List<Pedido> detalles = new ArrayList<>();
 
   //********************Constructor*******************//
 
@@ -88,11 +88,11 @@ public class Producto {
 		this.stock = stock;
 	}
 
-	public List<DetalleFactura> getDetalles() {
+	public List<Pedido> getDetalles() {
 		return detalles;
 	}
 
-	public void setDetalles(List<DetalleFactura> detalles) {
+	public void setDetalles(List<Pedido> detalles) {
 		this.detalles = detalles;
 	}
 
@@ -110,4 +110,3 @@ public class Producto {
 
 
 }
-

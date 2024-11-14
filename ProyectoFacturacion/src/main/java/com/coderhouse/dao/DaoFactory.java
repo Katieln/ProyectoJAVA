@@ -14,19 +14,19 @@ public class DaoFactory {
 
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Transactional
 	public void createCliente (Cliente cliente) {
 		em.persist(cliente);
 	}
-	
+
 	@Transactional
 	public void createProduct (Producto producto) {
 		em.persist(producto);
-		
-	} 
-	
-	
-	
-	
+
+	}
+
+
+
+
 }

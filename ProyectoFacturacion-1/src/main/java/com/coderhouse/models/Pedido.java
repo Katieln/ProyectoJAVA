@@ -9,7 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class DetalleFactura {
+public class Pedido {
 
 	//******************ColumnsTable*******************//
 
@@ -34,13 +34,13 @@ public class DetalleFactura {
 
   //********************Constructor*******************//
 
-	public DetalleFactura() {
+	public Pedido() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public DetalleFactura(Factura factura, Producto producto, int cantidad, double subtotal) {
+	public Pedido(Factura factura, Producto producto, int cantidad, double subtotal) {
 		super();
 		this.factura = factura;
 		this.producto = producto;

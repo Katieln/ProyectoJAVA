@@ -38,7 +38,7 @@ public class Factura {
     private double total;
 
     @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<DetalleFactura> detalles = new ArrayList<>();
+    private List<Pedido> detalles = new ArrayList<>();
 
 
     //********************Constructor*******************//
@@ -90,11 +90,11 @@ public class Factura {
 		this.total = total;
 	}
 
-	public List<DetalleFactura> getDetalles() {
+	public List<Pedido> getDetalles() {
 		return detalles;
 	}
 
-	public void setDetalles(List<DetalleFactura> detalles) {
+	public void setDetalles(List<Pedido> detalles) {
 		this.detalles = detalles;
 	}
 
