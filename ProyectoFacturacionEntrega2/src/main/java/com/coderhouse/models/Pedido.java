@@ -1,6 +1,7 @@
 package com.coderhouse.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,6 +44,10 @@ public class Pedido {
         }
     }
 
+    @JsonProperty("productoId")
+    public Long getProductoId() {
+        return producto != null ? producto.getId() : null;
+    }
 
 
 
