@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 
 @Entity
 public class Pedido {
@@ -18,12 +20,12 @@ public class Pedido {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "factura_id", nullable = false)
+    @JoinColumn(name = "facturaId", nullable = false)
     @JsonBackReference("factura-reference")   // Se usa para evitar serialización recursiva de la relación con 'Factura'
     private Factura factura;
 
     @ManyToOne
-    @JoinColumn(name = "producto_id", nullable = false)
+    @JoinColumn(name = "productoId", nullable = false)
     @JsonBackReference("producto-reference")   // Se usa para evitar serialización recursiva de la relación con 'Producto'
     private Producto producto;
 
@@ -32,6 +34,16 @@ public class Pedido {
 
     @Column(nullable = false)
     private double subtotal;
+
+    @PrePersist
+    @PreUpdate
+    public void calcularSubtotal() {
+        if (producto != null) {
+            this.subtotal = this.producto.getPrecio() * this.cantidad;
+        }
+    }
+
+
 
 
   //********************Constructor*******************//

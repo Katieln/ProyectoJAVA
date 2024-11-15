@@ -27,12 +27,12 @@ public class PedidoService {
 
 
 
-	/** //*********GetPedidoByID************
+ //*********GetPedidoByID************
 		public Pedido findById(Long id) {
 			return PedidoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pedido no encontrado"));
-		}/
+		}
 
-		**/
+
 
 
 	//**********AddNewPedido**********//
@@ -40,6 +40,9 @@ public class PedidoService {
 		public Pedido crearPedido(Pedido Pedido) {
 			return PedidoRepository.save(Pedido);
 		}
+
+
+
 
 
 
@@ -54,8 +57,8 @@ public class PedidoService {
 
 	//*********UpdatePedidoByID**********//
 
-		/*
-		@Transactional
+
+		/*@Transactional
 		public Pedido updatePedido(Long id, Pedido PedidoDetails) {
 			Pedido Pedido = PedidoRepository.findById(id)
 					.orElseThrow(() -> new IllegalArgumentException("Alumno no encontrado"));
@@ -65,6 +68,6 @@ public class PedidoService {
 
 
 			return PedidoRepository.save(Pedido);
-		}
-*/
+		}*/
+
 	}

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -19,6 +19,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PostPersist;
+import jakarta.persistence.PostUpdate;
 
 @Entity
 public class Factura {
@@ -27,21 +29,32 @@ public class Factura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
-    @JsonBackReference("cliente-reference")  // Usado aquí para evitar la serialización recursiva de la relación con 'Cliente'
-    private Cliente cliente;
-
     @Column(nullable = false)
     private LocalDateTime fecha = LocalDateTime.now();
 
     @Column(nullable = false)
     private double total;
 
+
+    @ManyToOne
+    @JoinColumn(name = "clienteId", nullable = false)
+    @JsonBackReference("cliente-reference")  // Usado aquí para evitar la serialización recursiva de la relación con 'Cliente'
+    private Cliente cliente;
+
+
+
+
     @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference("factura-reference")  // Usado para serializar la lista de 'Pedido' dentro de 'Factura'
-    private List<Pedido> detalles = new ArrayList<>();
+    private List<Pedido> pedidos = new ArrayList<>();
 
+
+    // Método para actualizar el total de la factura
+    @PostPersist
+    @PostUpdate
+    public void calcularTotal() {
+        this.total = pedidos.stream().mapToDouble(Pedido::getSubtotal).sum();
+    }
 
 
     //********************Constructor*******************//
@@ -51,63 +64,70 @@ public class Factura {
 		// TODO Auto-generated constructor stub
 	}
 
-
-
-
-
-
-
-  //********************getters & setters*******************//
-
+ //********************getters & setters*******************//
 
 
 	public Long getId() {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
 
 	public LocalDateTime getFecha() {
 		return fecha;
 	}
 
+
 	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
+
 
 	public double getTotal() {
 		return total;
 	}
 
+
 	public void setTotal(double total) {
 		this.total = total;
 	}
 
-	public List<Pedido> getDetalles() {
-		return detalles;
+
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setDetalles(List<Pedido> detalles) {
-		this.detalles = detalles;
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
+
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
+
+
+
+
 
 
 	//**********************ToString***************************//
 
 	@Override
 	public String toString() {
-		return "Factura [id=" + id + ", cliente=" + cliente + ", fecha=" + fecha + ", total=" + total + ", detalles="
-				+ detalles + "]";
+		return "Factura [id=" + id + ", cliente=" + cliente + ", fecha=" + fecha + ", total=" + total + ", pedidos="
+				+ pedidos + "]";
 	}
 
 
