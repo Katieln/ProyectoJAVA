@@ -24,7 +24,16 @@ import com.coderhouse.services.FacturaService;
 		private FacturaService facturaService;
 
 
-
+//*********GetAllFacturas***********//
+	@GetMapping
+	public ResponseEntity <List<Factura>> getAllFacturas(){
+			try {
+				List<Factura> Facturas = facturaService.getAllFacturas();
+				return ResponseEntity.ok(Facturas);
+			} catch (Exception e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			}
+		}
 
 
 
