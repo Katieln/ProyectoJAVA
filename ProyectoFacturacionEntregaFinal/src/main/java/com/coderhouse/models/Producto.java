@@ -2,6 +2,7 @@ package com.coderhouse.models;
 
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,21 +25,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 @Entity
-public class Cliente {
+public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombreCliente")
-    private String nombreCliente;
+    @Column(nullable = false)
+    private String nombreProducto;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference("cliente-reference")  // Usado para serializar la lista de 'Factura' dentro de 'Cliente'
-    private List<Factura> facturas = new ArrayList<>();
+    @Column(nullable = false)
+    private double precio;
 
+    @Column(nullable = false)
+    private int stock;
 
-
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference("producto-reference")  // Usado para serializar la lista de 'Pedido' dentro de 'Producto'
+    private List<Pedido> detalles = new ArrayList<>();
 
 
 
