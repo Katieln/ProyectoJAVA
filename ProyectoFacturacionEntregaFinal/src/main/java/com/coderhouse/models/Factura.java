@@ -70,6 +70,7 @@ public class Factura {
     public Long getClienteId() {
         return cliente != null ? cliente.getId() : null;
     }
+    }
 
  
 
@@ -81,13 +82,3 @@ public class Factura {
 
 
 
-
-
-
-
-
-
-
-
-
-}
