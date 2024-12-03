@@ -25,23 +25,34 @@
 
 ## Endpoints disponibles
 ### **Cliente**
-- **GET** `/api/clientes` - Listar todos los clientes.
-- **POST** `/api/clientes` - Crear un nuevo cliente.
-- **GET** `/api/clientes/{id}` - Obtener un cliente por ID.
+- **GET** `/api/cliente` - Listar todos los clientes.
+- **POST** `/api/cliente` - Crear un nuevo cliente.
+- **GET** `/api/cliente/{id}` - Obtener un cliente por ID.
 
 ### **Producto**
-- **GET** `/api/productos` - Listar todos los productos.
-- **POST** `/api/productos` - Crear un nuevo producto.
-- **GET** `/api/productos/{id}` - Obtener un producto por ID.
+- **GET** `/api/producto` - Listar todos los productos.
+- **POST** `/api/producto` - Crear un nuevo producto.
+- **GET** `/api/producto/{id}` - Obtener un producto por ID.
 
 ### **Pedido**
-- **GET** `/api/pedidos` - Listar todos los pedidos.
-- **POST** `/api/pedidos` - Crear un nuevo pedido.
+- **GET** `/api/pedido` - Listar todos los pedidos.
+- **POST** `/api/pedido` - Crear un nuevo pedido.
 
-### **Comprobante**
-- **POST** `/api/comprobantes` - Crear un nuevo comprobante.
-  - **Body**: Lista de IDs de pedidos.
-  - **Query Param**: `clienteId`.
-- **GET** `/api/comprobantes` - Listar todos los comprobantes.
-- **GET** `/api/comprobantes/{id}` - Obtener un comprobante por ID.
+### **Factura o comprobante**
+- **POST** `/api/comprobante` - Crear un nuevo comprobante.
+{
+    "clienteId": 1,
+    "productos": [
+        {
+            "productoId": 1,
+            "cantidad": 3
+        },
+        {
+            "productoId": 2,
+            "cantidad": 5
+        }
+    ]
+}
+- **GET** `/api/comprobante` - Listar todos los comprobantes.
+- **GET** `/api/comprobante/{id}` - Obtener un comprobante por ID.
 - 
