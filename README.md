@@ -1,14 +1,14 @@
 # ProyectoJAVA
 ## Características principales
-- **Gestión de comprobantes**:
-  - Creación de comprobantes asociados a clientes y pedidos.
+- **Gestión de Facturas**:
+  - Creación de facturas asociados a clientes y pedidos.
   - Cálculo automático del total de la venta y la cantidad de productos vendidos.
-  - Validaciones de stock de productos antes de registrar un comprobante.
+  - Validaciones de stock de productos antes de registrar una factura-comprobante.
 - **Gestión de clientes**:
-  - Asociar comprobantes a clientes existentes.
+  - Asociar facturas a clientes existentes.
 - **Gestión de productos**:
-  - Actualización automática del stock de productos al crear comprobantes.
-  - Protección de los precios históricos en comprobantes ya generados.
+  - Actualización automática del stock de productos al crear factura.
+  - Protección de los precios históricos en factura ya generada.
 - **Gestión de pedidos**:
   - Creación de pedidos con referencia a productos y cantidades solicitadas.
 
