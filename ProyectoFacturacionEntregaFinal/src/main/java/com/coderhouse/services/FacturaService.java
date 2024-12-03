@@ -45,38 +45,46 @@ public class FacturaService {
 
 
 	    // ********** AddNewFactura ********** //
-	    @Transactional
-	    public Factura crearFactura(FacturaDTO facturaDTO) {
-	        // Verifica que el cliente exista
-	        Cliente cliente = clienteRepository.findById(facturaDTO.getClienteId())
-	                .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
+		@Transactional
+		public Factura crearFactura(FacturaDTO facturaDTO) {
+		    // Verifica que el cliente exista
+		    Cliente cliente = clienteRepository.findById(facturaDTO.getClienteId())
+		            .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
 
-	        Factura factura = new Factura();
-	        factura.setCliente(cliente);
+		    Factura factura = new Factura();
+		    factura.setCliente(cliente);
 
-	        List<Pedido> pedidos = new ArrayList<>();
-	        double total = 0;
+		    List<Pedido> pedidos = new ArrayList<>();
+		    double total = 0;
 
-	        for (FacturaDTO.ProductoCantidad pc : facturaDTO.getProductos()) {
-	            Producto producto = productoRepository.findById(pc.getProductoId())
-	                    .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+		    for (FacturaDTO.ProductoCantidad pc : facturaDTO.getProductos()) {
+		        Producto producto = productoRepository.findById(pc.getProductoId())
+		                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
-	            Pedido pedido = new Pedido();
-	            pedido.setFactura(factura);
-	            pedido.setProducto(producto);
-	            pedido.setCantidad(pc.getCantidad());
+		        // Verifica que el stock sea suficiente
+		        if (producto.getStock() < pc.getCantidad()) {
+		            throw new RuntimeException("Stock insuficiente para el producto: " + producto.getNombreProducto());
+		        }
 
-	            pedido.calcularSubtotal();  // Asegura que el subtotal se calcule antes de añadir a la lista
-	            pedidos.add(pedido);
-	            total += pedido.getSubtotal();
-	        }
+		        // Reduce el stock del producto
+		        producto.setStock(producto.getStock() - pc.getCantidad());
+		        productoRepository.save(producto);
 
-	        factura.setPedidos(pedidos);
-	        factura.setTotal(total);
+		        Pedido pedido = new Pedido();
+		        pedido.setFactura(factura);
+		        pedido.setProducto(producto);
+		        pedido.setCantidad(pc.getCantidad());
 
-	        return facturaRepository.save(factura);
-	    }
+		        pedido.calcularSubtotal();  // Asegura que el subtotal se calcule antes de añadir a la lista
+		        pedidos.add(pedido);
+		        total += pedido.getSubtotal();
+		    }
 
+		    factura.setPedidos(pedidos);
+		    factura.setTotal(total);
+
+		    return facturaRepository.save(factura);
+		}
 
 
 
