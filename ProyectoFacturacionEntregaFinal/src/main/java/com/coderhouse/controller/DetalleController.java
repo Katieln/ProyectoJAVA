@@ -2,7 +2,7 @@ package com.coderhouse.controller;
 
 
 
-import java.util.List;
+/*import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,32 +12,31 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;*/
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.coderhouse.models.Pedido;
-import com.coderhouse.services.PedidoService;
+/*import com.coderhouse.models.Detalle;
+import com.coderhouse.services.DetalleService;*/
 
 @RestController
-@RequestMapping("/api/Pedido")
-public class PedidoController {
+@RequestMapping("/api/detalle")
+public class DetalleController {
 
-	@Autowired
-	private PedidoService PedidoService;
+/*	@Autowired
+	private DetalleService PedidoService;
 
-	//*********GetAllPedidos***********//
+	//*********GetAllPedidos***********/
 
-	@GetMapping
-	public ResponseEntity <List<Pedido>> getAllPedidos(){
+	/*@GetMapping
+	public ResponseEntity <List<Detalle>> getAllPedidos(){
 		try {
-			List<Pedido> Pedidos = PedidoService.getAllPedidos();
+			List<Detalle> Pedidos = PedidoService.getAllPedidos();
 			return ResponseEntity.ok(Pedidos);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
-	}
-
+	}*/
 
 
 	//*********GetPedidoByID***********//
@@ -56,32 +55,25 @@ public class PedidoController {
 	*/
 
 	//**********PostNewPedido**********//
-	@PostMapping
-	public ResponseEntity<Pedido> crearPedido(@RequestBody Pedido Pedido) {
-		try {
-			Pedido newPedido = PedidoService.crearPedido(Pedido);
-			return ResponseEntity.status(HttpStatus.CREATED).body(newPedido);
-
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-	}
+	/*
+	 * @PostMapping public ResponseEntity<Detalle> crearPedido(@RequestBody Detalle
+	 * Pedido) { try { Detalle newPedido = PedidoService.crearPedido(Pedido); return
+	 * ResponseEntity.status(HttpStatus.CREATED).body(newPedido);
+	 * 
+	 * } catch (Exception e) { return
+	 * ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); } }
+	 */
 
 
 
 	//*********DeletePedidoByID**********//
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deletePedido(@PathVariable Long id) {
-		try {
-			PedidoService.deletePedido(id);
-			return ResponseEntity.noContent().build();
-		} catch (IllegalArgumentException e) {
-			return ResponseEntity.notFound().build();
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-	}
-
+	/*
+	 * @DeleteMapping("/{id}") public ResponseEntity<Void>
+	 * deletePedido(@PathVariable Long id) { try { PedidoService.deletePedido(id);
+	 * return ResponseEntity.noContent().build(); } catch (IllegalArgumentException
+	 * e) { return ResponseEntity.notFound().build(); } catch (Exception e) { return
+	 * ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); } }
+	 */
 
 
 	//*********UpdatePedidoByID**********//

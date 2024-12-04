@@ -56,14 +56,14 @@ public class Factura {
 
     @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference("factura-reference")  // Usado para serializar la lista de 'Pedido' dentro de 'Factura'
-    private List<Pedido> pedidos = new ArrayList<>();
+    private List<Detalle> pedidos = new ArrayList<>();
 
 
     // Método para actualizar el total de la factura
     @PostPersist
     @PostUpdate
     public void calcularTotal() {
-        this.total = pedidos.stream().mapToDouble(Pedido::getSubtotal).sum();
+        this.total = pedidos.stream().mapToDouble(Detalle::getSubtotal).sum();
     }
 
     @JsonProperty("clienteId")

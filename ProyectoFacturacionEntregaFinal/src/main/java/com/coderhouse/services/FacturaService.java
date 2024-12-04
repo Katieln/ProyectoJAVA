@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.coderhouse.dtos.FacturaDTO;
 import com.coderhouse.models.Cliente;
 import com.coderhouse.models.Factura;
-import com.coderhouse.models.Pedido;
+import com.coderhouse.models.Detalle;
 import com.coderhouse.models.Producto;
 import com.coderhouse.repositories.ClienteRepository;
 import com.coderhouse.repositories.FacturaRepository;
@@ -42,6 +42,7 @@ public class FacturaService {
 		public Factura findById(Long id) {
 			return facturaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Factura no encontrado"));
 		}
+		
 
 
 	    // ********** AddNewFactura ********** //
@@ -54,7 +55,7 @@ public class FacturaService {
 		    Factura factura = new Factura();
 		    factura.setCliente(cliente);
 
-		    List<Pedido> pedidos = new ArrayList<>();
+		    List<Detalle> pedidos = new ArrayList<>();
 		    double total = 0;
 
 		    for (FacturaDTO.ProductoCantidad pc : facturaDTO.getProductos()) {
@@ -70,7 +71,7 @@ public class FacturaService {
 		        producto.setStock(producto.getStock() - pc.getCantidad());
 		        productoRepository.save(producto);
 
-		        Pedido pedido = new Pedido();
+		        Detalle pedido = new Detalle();
 		        pedido.setFactura(factura);
 		        pedido.setProducto(producto);
 		        pedido.setCantidad(pc.getCantidad());

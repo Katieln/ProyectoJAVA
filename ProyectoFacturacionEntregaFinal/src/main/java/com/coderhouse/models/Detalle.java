@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 @Entity
-public class Pedido {
+public class Detalle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -42,7 +42,7 @@ public class Producto {
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference("producto-reference")  // Usado para serializar la lista de 'Pedido' dentro de 'Producto'
-    private List<Pedido> detalles = new ArrayList<>();
+    private List<Detalle> detalles = new ArrayList<>();
 
 
 
